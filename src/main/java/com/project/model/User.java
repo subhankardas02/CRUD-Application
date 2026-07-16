@@ -1,4 +1,4 @@
-package com.project;
+package com.project.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -15,13 +15,18 @@ public class User {
     private Long id;
     private String firstName;
     private String lastName;
+    private String email;
+    private String phone;
+    private UserRole role=UserRole.CUSTOMER;
 
     public User() {}
 
-    public User(Long id, String firstName, String lastName) {
+    public User(Long id, String firstName, String email, String lastName, String phone, UserRole role) {
         this.id = id;
         this.firstName = firstName;
+        this.email = email;
         this.lastName = lastName;
+        this.phone = phone;
+        this.role = role;
     }
-
 }
