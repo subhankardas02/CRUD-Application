@@ -4,10 +4,8 @@ import jakarta.persistence.*;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.CascadeType;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
 
