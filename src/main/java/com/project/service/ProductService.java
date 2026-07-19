@@ -7,7 +7,9 @@ import com.project.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
@@ -51,5 +53,11 @@ public class ProductService {
                 Product saveProduct= productRepository.save(existingProduct);
                 return mapToProductResponse(saveProduct);
                 });
+    }
+
+    public List<ProductResponse> getAllProducts() {
+        return productRepository.findByActiveTrue().stream()
+                .map(this::mapToProductResponse)
+                .collect(Collectors.toList());
     }
 }
