@@ -4,9 +4,10 @@ import com.project.dto.ProductRequest;
 import com.project.dto.ProductResponse;
 import com.project.model.Product;
 import com.project.repository.ProductRepository;
-import org.jspecify.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class ProductService {
@@ -42,5 +43,13 @@ public class ProductService {
         product.setProductUrl(productRequest.getProductUrl());
         product.setStockQuantity(productRequest.getStockQuantity());
         product.setPrice(productRequest.getPrice());
+    }
+
+    public Optional<ProductResponse> updateProduct(Long id, ProductRequest productRequest) {
+        return productRepository.findById(id)
+                .map(existingProduct->{updateProductFromRequest(existingProduct, productRequest);
+                Product saveProduct= productRepository.save(existingProduct);
+                return mapToProductResponse(saveProduct);
+                });
     }
 }
