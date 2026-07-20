@@ -4,6 +4,7 @@ import com.project.dto.ProductRequest;
 import com.project.dto.ProductResponse;
 import com.project.model.Product;
 import com.project.repository.ProductRepository;
+import org.jspecify.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -59,5 +60,21 @@ public class ProductService {
         return productRepository.findByActiveTrue().stream()
                 .map(this::mapToProductResponse)
                 .collect(Collectors.toList());
+    }
+
+    public boolean deleteProduct(Long id) {
+        return productRepository.findById(id)
+                .map(Product->{Product.setActive(false);
+                productRepository.save(Product);
+                return true;}).orElse(false);
+
+    }
+
+
+    public List<ProductResponse> searchProducts(String keyword) {
+        return productRepository.searchProducts(keyword).stream()
+                .map(this::mapToProductResponse)
+                .collect(Collectors.toList());
+
     }
 }

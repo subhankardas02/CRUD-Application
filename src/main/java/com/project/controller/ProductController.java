@@ -3,6 +3,7 @@ package com.project.controller;
 import com.project.dto.ProductRequest;
 import com.project.dto.ProductResponse;
 import com.project.service.ProductService;
+import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,5 +31,15 @@ public class ProductController {
     public ResponseEntity<List<ProductResponse>> getProducts(){
         return ResponseEntity.ok(productService.getAllProducts());
     }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteProduct(@PathVariable Long id){
+        boolean delete=productService.deleteProduct(id);
+        return delete ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
+    }
+    @GetMapping("/search")
+    public ResponseEntity<List<ProductResponse>> getProduct(@RequestParam String keyword){
+        return ResponseEntity.ok(productService.searchProducts(keyword));
+    }
+
 
 }
