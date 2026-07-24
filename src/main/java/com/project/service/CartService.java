@@ -38,7 +38,15 @@ public class CartService {
             existingCartItem.setPrice(product.getPrice().multiply(BigDecimal.valueOf(existingCartItem.getQuantity())));
             cartItemRepository.save(existingCartItem);
         }
-
+        else{
+            CartItem cartItem=new CartItem();
+            cartItem.setUser(user);
+            cartItem.setProduct(product);
+            cartItem.setQuantity(request.getQuantity());
+            cartItem.setPrice(product.getPrice().multiply(BigDecimal.valueOf(request.getQuantity())));
+            cartItemRepository.save(cartItem);
+        }
+        return true;
 
 
     }

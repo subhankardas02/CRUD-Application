@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class CartController {
     @Autowired
     private CartService cartService;
-    private ResponseEntity<Void> addToCart(@RequestHeader("X-User-IT") String userId, @RequestBody CartItemRequest request){
-        cartService.addToCart(userId, request);
+    private ResponseEntity<String> addToCart(@RequestHeader("X-User-ID") String userId, @RequestBody CartItemRequest request){
+        if(!cartService.addToCart(userId, request)){
+            return ResponseEntity.badRequest().body("Product Out of Stock or User not found or Product not found");
+        }
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
